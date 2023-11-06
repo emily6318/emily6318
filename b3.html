@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Beatus - 조은진 소개</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #ffffff;
+            background-color: #000000; /* 배경색을 검정색으로 설정 */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: #ffffff; /* 헤더 텍스트 색상을 흰색으로 설정 */
+        }
+
+        a {
+            color: #2196F3;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .section-bg {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 2rem 0;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #navbar {
+            background: rgba(95, 151, 255, 0.812);
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 2; /* 네비게이션 바를 다른 요소 위에 표시 */
+        }
+
+        #navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #navbar li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        #navbar a {
+            color: #f1f1f1;
+            text-decoration: none;
+        }
+
+        #navbar a:hover {
+            text-decoration: underline;
+        }
+
+        #home {
+            position: relative;
+            z-index: 1;
+            margin-top: 70px; /* 네비게이션 바 아래로 내립니다. */
+        }
+
+        #home img {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <video autoplay loop muted id="video-background">
+        <source src="laptop_-_1625 (720p).mp4" type="video/mp4">
+    </video>
+
+    <div id="navbar">
+        <ul>
+            <li><a href="#home">홈</a></li>
+            <li><a href="#about">소개</a></li>
+            <li><a href="#direction">방향성</a></li>
+            <li><a href="#pledge">선거 공약</a></li>
+            <li><a href="#feedback">의견 수렴</a></li>
+            <li><a href="#contact">연락처</a></li>
+            <li><a href="#notice">공지</a></li>
+        </ul>
+    </div>
+
+    <div id="home" class="relative z-1">
+        <header class="text-center py-12">
+            <img src="https://cdn.pixabay.com/photo/2020/04/30/15/34/code-5113374_640.jpg" alt="조은진"
+                class="w-32 h-32 mx-auto rounded-full shadow-lg">
+            <h1 class="text-3xl font-bold mt-4">2024 Beatus</h1>
+            <p class="text-lg">10기 Beatus 조은진입니다.<br> 반갑습니다.</p>
+        </header>
+    </div>
+
+    <section id="notice" class="container mx-auto py-8 section-bg">
+        <h2 class="text-2xl font-semibold">공지 게시판</h2>
+        <!-- 공지 내용 추가 -->
+        <style>
+            /* 팝업 스타일 */
+            .popup {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 400px;
+                padding: 20px;
+                background: #ffffff;
+                border: 1px solid #000;
+                border-radius: 10px;
+                z-index: 1;
+            }
+
+            /* 배경 뒷배경 스타일 */
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 1;
+            }
+        </style>
+    </head>
+    <body>
+        <section id="notice" class="container mx-auto py-8 section-bg">
+            <h2 class="text-2xl font-semibold">공지 게시판</h2>
+            <ul id="notice-list">
+                <!-- 공지사항 목록은 JavaScript에서 동적으로 추가됩니다. -->
+            </ul>
+            <button id="add-notice-button" onclick="showPopup()">새로운 공지 추가</button>
+        </section>
+
+        <!-- 팝업 및 배경 레이어 -->
+        <div id="popup" class="popup">
+            <h3>새로운 공지 추가</h3>
+            <input type="text" id="notice-title" placeholder="제목">
+            <textarea id="notice-content" placeholder="내용"></textarea>
+            <button onclick="addNotice()">추가</button>
+            <button onclick="hidePopup()">취소</button>
+        </div>
+
+        <div id="overlay" class="overlay"></div>
+
+        <!-- 필요한 JavaScript 코드 추가 -->
+        <script>
+            // 공지사항 데이터를 저장할 배열
+            const notices = [];
+
+            // 팝업을 표시하는 함수
+            function showPopup() {
+                document.getElementById('popup').style.display = 'block';
+                document.getElementById('overlay').style.display = 'block';
+            }
+
+            // 팝업을 숨기는 함수
+            function hidePopup() {
+                document.getElementById('popup').style.display = 'none';
+                document.getElementById('overlay').style.display = 'none';
+            }
+
+            // 새로운 공지를 추가하는 함수
+            function addNotice() {
+                const title = document.getElementById('notice-title').value;
+                const content = document.getElementById('notice-content').value;
+
+                // 입력값 확인
+                if (title && content) {
+                    // 새로운 공지를 배열에 추가
+                    notices.push({ title, content });
+                    updateNoticeList();
+                    hidePopup();
+                }
+            }
+
+            // 공지사항 목록 업데이트
+            function updateNoticeList() {
+                const noticeList = document.getElementById('notice-list');
+                noticeList.innerHTML = '';
+
+                for (let i = 0; i < notices.length; i++) {
+                    const notice = notices[i];
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <h3>${notice.title}</h3>
+                        <p>${notice.content}</p>
+                        <p class="text-sm">게시일: ${new Date().toLocaleDateString()}</p>
+                        <button onclick="deleteNotice(${i})">삭제</button>
+                    `;
+                    noticeList.appendChild(li);
+                }
+            }
+
+            // 공지사항 삭제
+            function deleteNotice(index) {
+                const confirmed = confirm("공지를 삭제하시겠습니까?");
+                if (confirmed) {
+                    notices.splice(index, 1);
+                    updateNoticeList();
+                }
+            }
+        </script>
+        
+    </section>
+
+    <section id="about" class="container mx-auto py-8 section-bg">
+        <h2 class="text-2xl font-semibold">조은진</h2>
+        <p class="text-lg">Beatus 동아리 소개</p>
+        <p>안녕하세요, 충남삼성고 Beatus입니다. 저희 동아리는 IT와 프로그래밍에 대한 열정으로 동아리를 더욱 성장시키고자 노력하고 있습니다.</p>
+    </section>
+
+    <section id="direction" class="container mx-auto py-8 section-bg">
+        <h2 class="text-2xl font-semibold">동아리 방향성</h2>
+        <p>Be...</p> <!-- 내용 추가 필요 -->
+    </section>
+
+    <section id="pledge" class="container mx-auto py-8 section-bg">
+        <h2 class="text-2xl font-semibold">선거 공약</h2>
+        <p>저의 2024 Beatus 기장 선거 공약입니다. 앞으로의 동아리 활동 및 목표에 대한 다짐과 계획입니다.</p>
+        <!-- 공약 내용 추가 -->
+    </section>
+
+    <section id="feedback" class="container mx-auto py-8 section-bg">
+        <h2 class="text-2xl font-semibold">의견 수렴</h2>
+        <p>Beatus의 발전을 위해 여러분의 의견을 환영합니다. 아래 양식을 통해 의견을 공유해 주세요.</p>
+        <!-- 의견 수렴 양식 추가 -->
+    </section>
+
+    <section id="contact" class="container mx-auto py-8 section-bg">
+        <h2 class="text-2xl font-semibold">연락처</h2>
+        <p>문의나 연락이 필요하신 경우 아래 연락처를 이용해 주세요.</p>
+        <!-- 연락처 정보 추가 -->
+    </section>
+
+    <div id="chat-container" class="container mx-auto py-8">
+        <h2 class="text-2xl font-semibold">실시간 채팅</h2>
+        <div id="messages"></div>
+        <input id="message-input" type="text" placeholder="메시지 입력">
+        <button id="send-button">전송</button>
+    </div>
+
+    <footer class="text-center text-sm">
+        &copy; 2023 Beatus | Designed by [Your Name]
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // JavaScript 코드 추가
+    </script>
+</body>
+
+</html>
